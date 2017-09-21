@@ -2,7 +2,7 @@ clone_depth: 5
 
 environment:
   my_variable:
-    secure: 347edf65c383f7e42b6ca09553d4c0f5e1bc1470
+    secure: +QxUrAfSwG7NKDpKCPNGC822p9b4DDtQ1D2c7GoN6S0zo6tINSzUncrZw7WMfPYw
 
 install:
   - node --version
@@ -27,4 +27,4 @@ on_success:
   - for /d %%p IN (*) do rmdir "%%p" /s /q
   - SETLOCAL EnableDelayedExpansion & robocopy "%APPVEYOR_BUILD_FOLDER%\public" "%TEMP%\static-site" /e & IF !ERRORLEVEL! EQU 1 (exit 0) ELSE (IF !ERRORLEVEL! EQU 3 (exit 0) ELSE (exit 1))
   - git add -A
-  - if "%APPVEYOR_REPO_BRANCH%"=="master" if not defined APPVEYOR_PULL_REQUEST_NUMBER (git diff --quiet --exit-code --cached || git commit -m "Update Static Site" && git push origin %TARGET_BRANCH% && appveyor AddMessage "Static Site Updated")
+  - if "%APPVEYOR_REPO_BRANCH%"=="master" if not defined APPVEYOR_PULL_REQUEST_NUMBER (git diff --quiet --exit-code --cached || git commit -m "Update Static Site" && git push origin "%TARGET_BRANCH%" && appveyor AddMessage "Static Site Updated")
